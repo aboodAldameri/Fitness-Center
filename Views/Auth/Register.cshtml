@@ -1,0 +1,45 @@
+﻿@model Customer
+@{
+    Layout = "~/Views/Shared/_LoginAndRegister.cshtml";
+}
+<!-- Sign up form -->
+<section class="signup">
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-form">
+                <h2 class="form-title">Sign up</h2>
+                <form asp-action="Register"  class="register-form" id="register-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Fname"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input asp-for="Fname" name="Fname" id="your_name" placeholder="First Name" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Lname"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input asp-for="Lname" name="Lname"  placeholder="Last Name " />
+                    </div>
+                    <div class="form-group"> 
+                        <label asp-for="ImageFile"><i class="zmdi zmdi-email"></i></label> 
+                        <input asp-for="ImageFile" id="ImageFile" placeholder="Your Photo " /> 
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="text"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="userName"  placeholder="User Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" name="password" id="password" placeholder="Password" />
+                    </div>
+                        <div class="form-group form-button">
+                        <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                    </div>
+                     <div asp-validation-summary="All" class="text-danger"></div> 
+                </form>
+            </div>
+            <div class="signup-image">
+                <figure><img src="~/Auth/images/Logo.jpg" alt="sing up image"></figure>
+                <a asp-action="Index" class="signup-image-link">I am already member</a>
+            </div>
+        </div>
+    </div>
+</section>
