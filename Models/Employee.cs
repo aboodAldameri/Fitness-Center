@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Fitness_Center.Models;
 
@@ -18,4 +19,7 @@ public partial class Employee
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     public virtual Role? Role { get; set; }
+
+    [NotMapped]
+    public virtual IFormFile ImageFile { get; set; }
 }

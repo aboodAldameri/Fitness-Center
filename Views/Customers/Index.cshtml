@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashbord.cshtml";
+
 }
 
 <h1>Index</h1>
@@ -20,12 +22,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateTo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Employee)
@@ -52,12 +48,6 @@
                 @Html.DisplayFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateFrom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTo)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Employee.Id)
             </td>
             <td>
@@ -66,6 +56,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Subscription.Id)
             </td>
+            <td>
+                    <img src="@Url.Content("~/Images/" + item.ImagePath)" alt="Customer Image" style="width: 100px;" />
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

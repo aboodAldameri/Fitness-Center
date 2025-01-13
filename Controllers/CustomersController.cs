@@ -62,7 +62,7 @@ namespace Fitness_Center.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Fname,Lname,ImagePath,DateFrom,DateTo,SubscriptionId,EmployeeId,RoleId")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Fname,Lname,ImageFile,SubscriptionId,EmployeeId,RoleId")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace Fitness_Center.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("Id,Fname,Lname,ImagePath,DateFrom,DateTo,SubscriptionId,EmployeeId,RoleId")] Customer customer)
+        public async Task<IActionResult> Edit(decimal id, [Bind("Id,Fname,Lname,ImageFile,DateFrom,DateTo,SubscriptionId,EmployeeId,RoleId")] Customer customer)
         {
             if (id != customer.Id)
             {
@@ -118,6 +118,18 @@ namespace Fitness_Center.Controllers
             {
                 try
                 {
+                    if (customer.ImageFile != null)
+                    {
+                        string wwwRootPath = _webHostEnviroment.WebRootPath;
+                        string fileName = Guid.NewGuid().ToString() + "_" + customer.ImageFile.FileName;
+                        string path = Path.Combine(wwwRootPath + "/Images/", fileName);
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await customer.ImageFile.CopyToAsync(fileStream);
+                        }
+                        customer.ImagePath = fileName;
+                    }
+
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }

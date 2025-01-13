@@ -6,16 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fitness_Center.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Fitness_Center.Controllers
 {
     public class EmployeesController : Controller
     {
         private readonly ModelContext _context;
-
-        public EmployeesController(ModelContext context)
+        private readonly IWebHostEnvironment _webHostEnviroment;
+        public EmployeesController(ModelContext context, IWebHostEnvironment webHostEnviroment)
         {
             _context = context;
+            _webHostEnviroment = webHostEnviroment;
         }
 
         // GET: Employees
@@ -56,15 +58,24 @@ namespace Fitness_Center.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Fname,Lname,ImagePath,RoleId")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,Fname,Lname,ImageFile,RoleId")] Employee employee)
         {
             if (ModelState.IsValid)
             {
+
+                string wwwRootPath = _webHostEnviroment.WebRootPath;
+                string fileName = Guid.NewGuid().ToString() + "_" + employee.ImageFile.FileName;
+                string path = Path.Combine(wwwRootPath + "/Images/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await employee.ImageFile.CopyToAsync(fileStream);
+                }
+                employee.ImagePath = fileName;
+
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Id", employee.RoleId);
             return View(employee);
         }
 
@@ -90,7 +101,7 @@ namespace Fitness_Center.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("Id,Fname,Lname,ImagePath,RoleId")] Employee employee)
+        public async Task<IActionResult> Edit(decimal id, [Bind("Id,Fname,Lname,ImageFile,RoleId")] Employee employee)
         {
             if (id != employee.Id)
             {
@@ -101,6 +112,18 @@ namespace Fitness_Center.Controllers
             {
                 try
                 {
+                    if (employee.ImageFile != null)
+                    {
+                        string wwwRootPath = _webHostEnviroment.WebRootPath;
+                        string fileName = Guid.NewGuid().ToString() + "_" + employee.ImageFile.FileName;
+                        string path = Path.Combine(wwwRootPath + "/Images/", fileName);
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await employee.ImageFile.CopyToAsync(fileStream);
+                        }
+                        employee.ImagePath = fileName;
+                    }
+
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }

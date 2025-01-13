@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 
 namespace Fitness_Center.Models;
 
@@ -14,10 +14,8 @@ public partial class Customer
     public string? Lname { get; set; }
 
     public string? ImagePath { get; set; }
-
-    public DateTime? DateFrom { get; set; }
-
-    public DateTime? DateTo { get; set; }
+    [NotMapped]
+    public virtual IFormFile ImageFile { get; set; }
 
     public decimal? SubscriptionId { get; set; }
 
@@ -27,13 +25,9 @@ public partial class Customer
 
     public virtual Employee? Employee { get; set; }
 
-    public virtual ICollection<Login> Logins { get; set; } = new List<Login>();
-
     public virtual Role? Role { get; set; }
 
     public virtual Subsicription? Subscription { get; set; }
 
-    [NotMapped]
-    public virtual IFormFile ImageFile { get; set; }
 
 }

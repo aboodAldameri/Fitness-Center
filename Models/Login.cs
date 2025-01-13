@@ -11,11 +11,7 @@ public partial class Login
 
     public decimal? RoleId { get; set; }
 
-    public decimal? CustomerId { get; set; }
-
     public decimal Id { get; set; }
-
-    public virtual Customer? Customer { get; set; }
 
     public virtual Role? Role { get; set; }
 }

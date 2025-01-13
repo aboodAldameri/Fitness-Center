@@ -46,7 +46,6 @@ namespace Fitness_Center.Controllers
                     Login userLogin = new Login();
                     userLogin.Username = userName;
                     userLogin.Password = password;
-                    userLogin.CustomerId = customer.Id;
                     userLogin.RoleId = 3;
 
                 _context.Add(userLogin);
@@ -76,13 +75,13 @@ namespace Fitness_Center.Controllers
                 switch (user.RoleId)
                 {
                     case 1:
-                        HttpContext.Session.SetInt32("AdminId", (int)user.CustomerId);
+                        HttpContext.Session.SetInt32("AdminId", (int)user.RoleId);
                         return RedirectToAction("Index","Admin");
                     case 2:
-                        HttpContext.Session.SetInt32("TrainerId", (int)user.CustomerId);
+                        HttpContext.Session.SetInt32("TrainerId", (int)user.RoleId);
                         return RedirectToAction("Index","Trainer");
                     case 3:
-                        HttpContext.Session.SetInt32("CustomerId", (int)user.CustomerId);
+                        HttpContext.Session.SetInt32("CustomerId", (int)user.RoleId);
                         return RedirectToAction("Index","Home");
 
                 }
