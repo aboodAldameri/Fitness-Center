@@ -12,6 +12,17 @@ namespace Fitness_Center.Controllers
 {
     public class CustomersController : Controller
     {
+        public async Task<IActionResult> Show()
+        {
+            var customers = await _context.Customers
+                .Include(c => c.Employee)
+                .Include(c => c.Role)
+                .Include(c => c.Subscription)
+                .ToListAsync();
+
+            return View(customers);
+        }
+
         private readonly ModelContext _context;
         private readonly IWebHostEnvironment _webHostEnviroment;
         public CustomersController(ModelContext context, IWebHostEnvironment webHostEnviroment)
