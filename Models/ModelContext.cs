@@ -244,6 +244,10 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("TESTIMONIAL");
+            entity.Property(e => e.Status)
+                .HasColumnType("NUMBER(1)") 
+                .HasDefaultValueSql("0")   
+                .HasColumnName("STATUS");
         });
 
         OnModelCreatingPartial(modelBuilder);

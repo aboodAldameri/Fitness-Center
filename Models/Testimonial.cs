@@ -10,4 +10,6 @@ public partial class Testimonial
     public string? Customername { get; set; }
 
     public string? Testimonial1 { get; set; }
+
+    public bool? Status { get; set; }
 }

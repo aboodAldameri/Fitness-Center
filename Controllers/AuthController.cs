@@ -82,7 +82,7 @@ namespace Fitness_Center.Controllers
                         return RedirectToAction("Index","Trainer");
                     case 3:
                         HttpContext.Session.SetInt32("CustomerId", (int)user.RoleId);
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index1","Home");
 
                 }
             }
