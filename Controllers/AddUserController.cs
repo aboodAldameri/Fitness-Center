@@ -80,7 +80,7 @@ namespace Fitness_Center.Controllers
                     _context.Add(login);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Admin");
                 }
                 catch (Exception ex)
                 {
