@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
 
 namespace Fitness_Center.Models;
 
@@ -28,6 +27,4 @@ public partial class Customer
     public virtual Role? Role { get; set; }
 
     public virtual Subsicription? Subscription { get; set; }
-
-
 }

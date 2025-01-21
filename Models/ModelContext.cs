@@ -23,13 +23,19 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<Payment> Payments { get; set; }
 
+    public virtual DbSet<Payment2> Payment2s { get; set; }
+
     public virtual DbSet<Plan> Plans { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
+    public virtual DbSet<Subsic> Subsics { get; set; }
+
     public virtual DbSet<Subsicription> Subsicriptions { get; set; }
 
     public virtual DbSet<Testimonial> Testimonials { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -172,6 +178,36 @@ public partial class ModelContext : DbContext
                 .HasColumnName("TOTAL");
         });
 
+        modelBuilder.Entity<Payment2>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("SYS_C008371");
+
+            entity.ToTable("PAYMENT2");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("ID");
+            entity.Property(e => e.Bankname)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("BANKNAME");
+            entity.Property(e => e.Iban)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("IBAN");
+            entity.Property(e => e.Subscriptionid)
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("SUBSCRIPTIONID");
+            entity.Property(e => e.Total)
+                .HasColumnType("NUMBER")
+                .HasColumnName("TOTAL");
+
+            entity.HasOne(d => d.Subscription).WithMany(p => p.Payment2s)
+                .HasForeignKey(d => d.Subscriptionid)
+                .HasConstraintName("FK_PAYMENT_SUBSCRIPTION");
+        });
+
         modelBuilder.Entity<Plan>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("SYS_C008354");
@@ -211,6 +247,38 @@ public partial class ModelContext : DbContext
                 .HasColumnName("ROLE_NAME");
         });
 
+        modelBuilder.Entity<Subsic>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("SYS_C008367");
+
+            entity.ToTable("SUBSIC");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("ID");
+            entity.Property(e => e.Enddate)
+                .HasColumnType("DATE")
+                .HasColumnName("ENDDATE");
+            entity.Property(e => e.NumOfMonths)
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("NUM_OF_MONTHS");
+            entity.Property(e => e.Planid)
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("PLANID");
+            entity.Property(e => e.Startdate)
+                .HasColumnType("DATE")
+                .HasColumnName("STARTDATE");
+            entity.Property(e => e.Totalamount)
+                .HasColumnType("NUMBER")
+                .HasColumnName("TOTALAMOUNT");
+
+            entity.HasOne(d => d.Plan).WithMany(p => p.Subsics)
+                .HasForeignKey(d => d.Planid)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_PLANID");
+        });
+
         modelBuilder.Entity<Subsicription>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("SYS_C008336");
@@ -240,14 +308,53 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("CUSTOMERNAME");
+            entity.Property(e => e.Status)
+                .HasPrecision(1)
+                .HasDefaultValueSql("0")
+                .HasColumnName("STATUS");
             entity.Property(e => e.Testimonial1)
                 .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("TESTIMONIAL");
-            entity.Property(e => e.Status)
-                .HasColumnType("NUMBER(1)") 
-                .HasDefaultValueSql("0")   
-                .HasColumnName("STATUS");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("SYS_C008377");
+
+            entity.ToTable("USERS");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("ID");
+            entity.Property(e => e.Fname)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("FNAME");
+            entity.Property(e => e.ImagePath)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("IMAGE_PATH");
+            entity.Property(e => e.Lname)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("LNAME");
+            entity.Property(e => e.Password)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("PASSWORD");
+            entity.Property(e => e.Roleid)
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("ROLEID");
+            entity.Property(e => e.Username)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("USERNAME");
+            entity.Property(e => e.Usertype)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("USERTYPE");
         });
 
         OnModelCreatingPartial(modelBuilder);

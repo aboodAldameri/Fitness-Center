@@ -13,13 +13,12 @@ public partial class Employee
     public string? Lname { get; set; }
 
     public string? ImagePath { get; set; }
+    [NotMapped]
+    public virtual IFormFile ImageFile { get; set; }
 
     public decimal? RoleId { get; set; }
 
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     public virtual Role? Role { get; set; }
-
-    [NotMapped]
-    public virtual IFormFile ImageFile { get; set; }
 }
