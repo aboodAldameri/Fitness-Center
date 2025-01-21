@@ -307,36 +307,43 @@
             </div>
         </div>
     </div>
-</div>
+  
+
 <!-- Class Timetable End -->
+<br>
+<br>
+<br>
+<hr />
+    <h1 class="display-4 font-weight-bold">Available Plans</h1>
 
-<h1>Available Plans</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Planname</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Buy</th>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Planname</th>
-            <th>Description</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            foreach (var item in Model)
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Planname</td>
+                        <td>@item.Description</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@item.Planname</td>
-                    <td>@item.Description</td>
-                    <td>@item.Price</td>
+                    <td colspan="3" class="text-center">No plans available.</td>
                 </tr>
             }
-        }
-        else
-        {
-            <tr>
-                <td colspan="3" class="text-center">No plans available.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
