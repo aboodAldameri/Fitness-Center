@@ -52,7 +52,6 @@ namespace Fitness_Center.Controllers
                         };
 
                         _context.Add(customer);
-                        // إدخال البيانات في جدول Users
                         var user = new User
                         {
                             Fname = model.Fname,
@@ -74,6 +73,17 @@ namespace Fitness_Center.Controllers
                         };
 
                         _context.Add(employee);
+
+                        var user = new User
+                        {
+                            Fname = model.Fname,
+                            Lname = model.Lname,
+                            ImagePath = fileName,
+                            Roleid = model.Role,
+                            Username = model.UserName,
+                            Password = model.Password
+                        };
+                        _context.Add(user);
                     }
                     else
                     {

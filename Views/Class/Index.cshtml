@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<Fitness_Center.Models.Plan>
+
 @{
     Layout = "~/Views/Shared/_Member.cshtml";
 }
@@ -308,3 +309,34 @@
     </div>
 </div>
 <!-- Class Timetable End -->
+
+<h1>Available Plans</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Planname</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Planname</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No plans available.</td>
+            </tr>
+        }
+    </tbody>
+</table>

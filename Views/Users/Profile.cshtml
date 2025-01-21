@@ -1,0 +1,47 @@
+﻿@model Fitness_Center.Models.User
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>Edit Profile</h2>
+
+<form asp-action="Profile" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Fname"></label>
+        <input asp-for="Fname" class="form-control" />
+        <span asp-validation-for="Fname" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Lname"></label>
+        <input asp-for="Lname" class="form-control" />
+        <span asp-validation-for="Lname" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImagePath"></label>
+        <input asp-for="ImagePath" class="form-control" />
+        <span asp-validation-for="ImagePath" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Usertype"></label>
+        <input asp-for="Usertype" class="form-control" />
+        <span asp-validation-for="Usertype" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Username"></label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

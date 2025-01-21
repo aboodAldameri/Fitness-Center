@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Fitness_Center.Models;
 
@@ -13,6 +14,8 @@ public partial class User
 
     public string? ImagePath { get; set; }
 
+    [NotMapped]
+    public virtual IFormFile ImageFile { get; set; }
     public string? Usertype { get; set; }
 
     public decimal? Roleid { get; set; }
