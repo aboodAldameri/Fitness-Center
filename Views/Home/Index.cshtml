@@ -1,5 +1,7 @@
 ﻿@{
     Layout = "~/views/shared/_HomeLayout.cshtml";
+    var testimonials = ViewBag.Testimonials as List<Fitness_Center.Models.Testimonial>;
+
 }
 
 <!-- Carousel Start -->
@@ -528,47 +530,27 @@
                 <div class="d-flex align-items-center px-3" style="min-height: 450px;">
                     <div id="carouselId" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li data-target="#carouselId" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselId" data-slide-to="1"></li>
-                            <li data-target="#carouselId" data-slide-to="2"></li>
+                            @for (int i = 0; i < testimonials.Count; i++)
+                            {
+                                <li data-target="#carouselId" data-slide-to="@i" class="@((i == 0) ? "active" : "")"></li>
+                            }
                         </ol>
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="d-flex align-items-center mb-4 text-white">
-                                    <img width="80" height="80" class="rounded-circle bg-dark p-2" src="~/Home/img/testimonial-1.jpg" alt="Image">
-                                    <div class="pl-4">
-                                        <h4 class="text-primary">Client Name</h4>
-                                        <p class="m-0">Profession</p>
+                            @foreach (var testimonial in testimonials.Select((value, index) => new { value, index }))
+                            {
+                                <div class="carousel-item @(testimonial.index == 0 ? "active" : "")">
+                                    <div class="d-flex align-items-center mb-4 text-white">
+                                        <img width="80" height="80" class="rounded-circle bg-dark p-2" src="~/Home/img/testimonial-@testimonial.index" alt="Image">
+                                        <div class="pl-4">
+                                            <h4 class="text-primary">@testimonial.value.Customername</h4>
+                                            <p class="m-0">Customer</p>
+                                        </div>
+                                    </div>
+                                    <div class="testimonial-text position-relative border bg-dark text-white mb-5 p-4">
+                                        @testimonial.value.Testimonial1
                                     </div>
                                 </div>
-                                <div class="testimonial-text position-relative border bg-dark text-white mb-5 p-4">
-                                    Sed ea amet kasd elitr stet nonumy, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolores tempor voluptua ipsum sanctus clita
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="d-flex align-items-center mb-4 text-white">
-                                    <img width="80" height="80" class="rounded-circle bg-dark p-2" src="~/Home/img/testimonial-2.jpg" alt="Image">
-                                    <div class="pl-4">
-                                        <h4 class="text-primary">Client Name</h4>
-                                        <p class="m-0">Profession</p>
-                                    </div>
-                                </div>
-                                <div class="testimonial-text position-relative border bg-dark text-white mb-5 p-4">
-                                    Sed ea amet kasd elitr stet nonumy, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolores tempor voluptua ipsum sanctus clita
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="d-flex align-items-center mb-4 text-white">
-                                    <img width="80" height="80" class="rounded-circle bg-dark p-2" src="~/Home/img/testimonial-3.jpg" alt="Image">
-                                    <div class="pl-4">
-                                        <h4 class="text-primary">Client Name</h4>
-                                        <p class="m-0">Profession</p>
-                                    </div>
-                                </div>
-                                <div class="testimonial-text position-relative border bg-dark text-white mb-5 p-4">
-                                    Sed ea amet kasd elitr stet nonumy, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolores tempor voluptua ipsum sanctus clita
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>

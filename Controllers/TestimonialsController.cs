@@ -23,19 +23,14 @@ namespace Fitness_Center.Controllers
         {
             if (ModelState.IsValid)
             {
-             
-                testimonial.Status ??= false;  
-
-              
+                testimonial.Status = false; 
                 _context.Testimonials.Add(testimonial);
                 _context.SaveChanges();
 
-              
-                ViewBag.Message = "Thank you for your feedback!";
+                ViewBag.Message = "Thank you! Your testimonial has been submitted for review.";
                 return RedirectToAction("Index");
             }
 
-            
             return View(testimonial);
         }
     }

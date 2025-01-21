@@ -3,26 +3,21 @@
 @{
     Layout = "~/Views/Shared/_Member.cshtml";
 }
+<!-- Page Header Start --> 
+ <div class="container-fluid page-header mb-5"> 
+     <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px"> 
+         <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Testimonials</h4> 
+         <div class="d-inline-flex"> 
+            <p class="m-0 text-white"><a class="text-white" href="/">Home</a></p> 
+             <p class="m-0 text-white px-2">/</p> 
+            <p class="m-0 text-white">Testimonials</p> 
+         </div> 
+    </div> 
+ </div> 
+ <!-- Page Header End -->
 
-<!-- Page Header Start -->
-<div class="container-fluid page-header mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
-        <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Testimonials</h4>
-        <div class="d-inline-flex">
-            <p class="m-0 text-white"><a class="text-white" href="/">Home</a></p>
-            <p class="m-0 text-white px-2">/</p>
-            <p class="m-0 text-white">Testimonials</p>
-        </div>
-    </div>
-</div>
-<!-- Page Header End -->
-<!-- Contact Start -->
 <div class="container pt-5">
-    <div class="d-flex flex-column text-center mb-5">
-        <h4 class="text-primary font-weight-bold">Get In Touch</h4>
-        <h4 class="display-4 font-weight-bold">Add Testimonials</h4>
-    </div>
-
+    <h4 class="text-primary font-weight-bold">Submit a Testimonial</h4>
     @if (ViewBag.Message != null)
     {
         <div class="alert alert-success">
@@ -30,25 +25,65 @@
         </div>
     }
 
-    <div class="row">
-        <div class="col-md-12 pb-11">
-            <div class="contact-form">
-                <div id="success"></div>
-                <form asp-action="Index" id="contactForm" method="post" novalidate="novalidate">
-                    <div class="control-group">
-                        <input asp-for="Customername" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
-                        <span asp-validation-for="Customername" class="text-danger"></span>
-                    </div>
-                    <div class="control-group">
-                        <textarea asp-for="Testimonial1" class="form-control" rows="6" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
-                        <span asp-validation-for="Testimonial1" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <button class="btn btn-outline-primary" type="submit" id="sendMessageButton">Send Message</button>
-                    </div>
-                </form>
-            </div>
+    <form asp-action="Index" method="post">
+        <div class="form-group">
+            <label asp-for="Customername">Your Name</label>
+            <input asp-for="Customername" class="form-control" />
+            <span asp-validation-for="Customername" class="text-danger"></span>
         </div>
-    </div>
+        <div class="form-group">
+            <label asp-for="Testimonial1">Message</label>
+            <textarea asp-for="Testimonial1" class="form-control"></textarea>
+            <span asp-validation-for="Testimonial1" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
-<!-- Contact End -->
+
+
+
+
+
+@* @model Fitness_Center.Models.Testimonial *@
+
+@* @{ *@
+@*     Layout = "~/Views/Shared/_Member.cshtml"; *@
+@* } *@
+
+
+@* <!-- Contact Start --> *@
+@* <div class="container pt-5"> *@
+@*     <div class="d-flex flex-column text-center mb-5"> *@
+@*         <h4 class="text-primary font-weight-bold">Get In Touch</h4> *@
+@*         <h4 class="display-4 font-weight-bold">Add Testimonials</h4> *@
+@*     </div> *@
+
+@*     @if (ViewBag.Message != null) *@
+@*     { *@
+@*         <div class="alert alert-success"> *@
+@*             @ViewBag.Message *@
+@*         </div> *@
+@*     } *@
+
+@*     <div class="row"> *@
+@*         <div class="col-md-12 pb-11"> *@
+@*             <div class="contact-form"> *@
+@*                 <div id="success"></div> *@
+@*                 <form asp-action="Index" id="contactForm" method="post" novalidate="novalidate"> *@
+@*                     <div class="control-group"> *@
+@*                         <input asp-for="Customername" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" /> *@
+@*                         <span asp-validation-for="Customername" class="text-danger"></span> *@
+@*                     </div> *@
+@*                     <div class="control-group"> *@
+@*                         <textarea asp-for="Testimonial1" class="form-control" rows="6" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea> *@
+@*                         <span asp-validation-for="Testimonial1" class="text-danger"></span> *@
+@*                     </div> *@
+@*                     <div> *@
+@*                         <button class="btn btn-outline-primary" type="submit" id="sendMessageButton">Send Message</button> *@
+@*                     </div> *@
+@*                 </form> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+@* <!-- Contact End --> *@
