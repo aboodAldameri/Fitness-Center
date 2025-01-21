@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Subscription Report";
+    Layout = "~/Views/Shared/_AdminDashbord.cshtml";
+    var chartData = ViewBag.ChartData;
+}
+
+<h2>Subscription Chart</h2>
+
+<div style="width: 80%; margin: auto;">
+    <canvas id="subscriptionChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var chartData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.ChartData));
+
+    var labels = chartData.map(item => item.Month);
+    var data = chartData.map(item => item.Count);
+
+    var ctx = document.getElementById('subscriptionChart').getContext('2d');
+    var subscriptionChart = new Chart(ctx, {
+        type: 'bar', 
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Number of Subscriptions',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

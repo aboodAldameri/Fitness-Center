@@ -17,6 +17,52 @@ namespace Fitness_Center.Controllers
         {
             _context = context;
         }
+        public IActionResult SubscriptionReport()
+        {
+            var currentYear = DateTime.Now.Year;
+
+            var subscriptionsPerMonth = _context.Subsics
+                .Where(s => s.Startdate.HasValue && s.Startdate.Value.Year == currentYear) 
+                .GroupBy(s => s.Startdate.Value.Month)
+                .Select(g => new
+                {
+                    Month = g.Key,
+                    Count = g.Count()
+                })
+                .ToList();
+
+            var allMonths = Enumerable.Range(1, 12).Select(m => new
+            {
+                Month = m,
+                Count = 0 
+            }).ToList();
+
+            var chartData = allMonths
+                .GroupJoin(
+                    subscriptionsPerMonth,
+                    all => all.Month,
+                    sub => sub.Month,
+                    (all, subs) => new
+                    {
+                        Month = $"{all.Month}/{currentYear}",
+                        Count = subs.Sum(s => s.Count)
+                    })
+                .OrderBy(x => x.Month)
+                .ToList();
+
+            ViewBag.ChartData = chartData;
+            return View();
+        }
+
+        public async Task<IActionResult> Show()
+        {
+            var subsics = await _context.Subsics
+                .Include(s => s.Plan) 
+                .ToListAsync();
+
+            return View(subsics); 
+        }
+
 
         // GET: Subsics
         public async Task<IActionResult> Index()

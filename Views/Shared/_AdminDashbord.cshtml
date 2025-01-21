@@ -335,6 +335,21 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Report</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="/Subsics/Show"> All subscriptions</a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="/Subsics/SubscriptionReport"> Chart </a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </nav>
             <div class="container-fluid">
@@ -361,6 +376,8 @@
             <!-- Custom js for this page-->
             <script src="~/Admin/js/dashboard.js"></script>
             <script src="~/Admin/js/Chart.roundedBarCharts.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
             <!-- End custom js for this page-->
 
             @RenderSection("Scripts", required: false)

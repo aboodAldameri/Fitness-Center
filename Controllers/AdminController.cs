@@ -48,5 +48,6 @@ namespace Fitness_Center.Controllers
 
             return View();
         }
+        
     }
 }

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Fitness_Center.Models.Subsic>
+@{
+    Layout = "~/Views/Shared/_TrainerDashbord.cshtml";
+
+}
+<h3>All Subscription</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Plan Name</th>
+            <th>Number of Months</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subsic in Model)
+        {
+            <tr>
+                <td>@subsic.Id</td>
+                <td>@subsic.Plan?.Planname</td>
+                <td>@subsic.NumOfMonths</td>
+                <td>@subsic.Startdate?.ToString("yyyy-MM-dd")</td>
+                <td>@subsic.Enddate?.ToString("yyyy-MM-dd")</td>
+                <td>@subsic.Totalamount</td>
+            </tr>
+        }
+        <a href="/Admin/Index">
+            <button class="btn btn-outline-primary"> Back </button>
+        </a>
+    </tbody>
+</table>
