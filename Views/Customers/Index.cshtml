@@ -11,6 +11,12 @@
 
 <table class="table">
     <thead>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td colspan="5"><strong>Total Number of Customer:</strong></td>
+                    <td>@Model.Count()</td>
+                </tr>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Fname)

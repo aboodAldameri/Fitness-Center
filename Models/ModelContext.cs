@@ -19,7 +19,11 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<Employee> Employees { get; set; }
 
+    public virtual DbSet<Gymtext> Gymtexts { get; set; }
+
     public virtual DbSet<Login> Logins { get; set; }
+
+    public virtual DbSet<Pagecontent> Pagecontents { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
 
@@ -39,7 +43,7 @@ public partial class ModelContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseOracle("Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.14)(PORT=1521)(CONNECT_DATA=(SID=orcl))));User Id=C##ABDULLAH1; Password=Test321;");
+        => optionsBuilder.UseOracle("Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.100.14)(PORT=1521)(CONNECT_DATA=(SID=orcl))));User Id=C##ABDULLAH1; Password=Test321;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -127,6 +131,26 @@ public partial class ModelContext : DbContext
                 .HasConstraintName("FK_ROLE_ID");
         });
 
+        modelBuilder.Entity<Gymtext>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("SYS_C008381");
+
+            entity.ToTable("GYMTEXT");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("ID");
+            entity.Property(e => e.Content)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("CONTENT");
+            entity.Property(e => e.Title)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("TITLE");
+        });
+
         modelBuilder.Entity<Login>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("SYS_C008350");
@@ -153,6 +177,38 @@ public partial class ModelContext : DbContext
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_ROLE_ID2");
+        });
+
+        modelBuilder.Entity<Pagecontent>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("SYS_C008385");
+
+            entity.ToTable("PAGECONTENT");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnType("NUMBER(38)")
+                .HasColumnName("ID");
+            entity.Property(e => e.Description)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("DESCRIPTION");
+            entity.Property(e => e.Imageurl)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("IMAGEURL");
+            entity.Property(e => e.Sectionname)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("SECTIONNAME");
+            entity.Property(e => e.Subtitle)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("SUBTITLE");
+            entity.Property(e => e.Title)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("TITLE");
         });
 
         modelBuilder.Entity<Payment>(entity =>
