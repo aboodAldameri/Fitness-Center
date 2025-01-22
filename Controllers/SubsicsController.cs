@@ -12,10 +12,13 @@ namespace Fitness_Center.Controllers
     public class SubsicsController : Controller
     {
         private readonly ModelContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public SubsicsController(ModelContext context)
+
+        public SubsicsController(ModelContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult SubscriptionReport()
         {
@@ -62,6 +65,26 @@ namespace Fitness_Center.Controllers
 
             return View(subsics); 
         }
+        public IActionResult Index1(DateTime? StartDate, DateTime? EndDate)
+        {
+            var subscriptions = _context.Subsics.AsQueryable();
+
+            if (StartDate.HasValue)
+            {
+                subscriptions = subscriptions.Where(s => s.Startdate >= StartDate.Value);
+            }
+            if (EndDate.HasValue)
+            {
+                subscriptions = subscriptions.Where(s => s.Enddate <= EndDate.Value);
+            }
+
+            ViewData["StartDate"] = StartDate?.ToString("MM-dd-yyyy");
+            ViewData["EndDate"] = EndDate?.ToString("MM-dd-yyyy");
+
+            return View(subscriptions.ToList());
+        }
+
+        
 
 
         // GET: Subsics

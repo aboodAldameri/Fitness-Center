@@ -176,6 +176,10 @@ public partial class ModelContext : DbContext
             entity.Property(e => e.Total)
                 .HasColumnType("NUMBER")
                 .HasColumnName("TOTAL");
+            entity.Property(e => e.Useremail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("USEREMAIL");
         });
 
         modelBuilder.Entity<Payment2>(entity =>

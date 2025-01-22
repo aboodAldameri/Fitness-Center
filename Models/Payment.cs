@@ -12,4 +12,6 @@ public partial class Payment
     public string? Iban { get; set; }
 
     public decimal? Total { get; set; }
+
+    public string? Useremail { get; set; }
 }

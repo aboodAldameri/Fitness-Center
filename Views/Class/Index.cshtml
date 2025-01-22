@@ -389,11 +389,17 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Complete Purchase</button>
                 </div>
+                
             </form>
         </div>
     </div>
     <div id="alertMessage" class="alert d-none" role="alert"></div>
-
+    @if (TempData["PaymentMessage"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["PaymentMessage"]
+        </div>
+    }
 </div>
 
 <script>

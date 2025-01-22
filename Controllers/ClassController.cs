@@ -38,7 +38,7 @@ namespace Fitness_Center.Controllers
                 return RedirectToAction("Index");
             }
 
-         
+
             var totalAmount = plan.Price * NumOfMonths;
 
             if (paymentCard.Total < totalAmount)
