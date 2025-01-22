@@ -78,8 +78,8 @@ namespace Fitness_Center.Controllers
                 subscriptions = subscriptions.Where(s => s.Enddate <= EndDate.Value);
             }
 
-            ViewData["StartDate"] = StartDate?.ToString("MM-dd-yyyy");
-            ViewData["EndDate"] = EndDate?.ToString("MM-dd-yyyy");
+            ViewData["StartDate"] = StartDate?.ToString("yyyy-MM-dd");
+            ViewData["EndDate"] = EndDate?.ToString("yyyy-MM-dd");
 
             return View(subscriptions.ToList());
         }
